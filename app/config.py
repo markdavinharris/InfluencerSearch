@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     # LLM (classification) — any OpenAI-compatible endpoint
     llm_base_url: str = "https://api.anthropic.com/v1"
     llm_api_key: str = ""
-    llm_model: str = "claude-haiku-4-5"
+    llm_model: str = "claude-haiku-4-5-20251001"
     llm_daily_token_cap: int = 2_000_000
     llm_batch_size: int = 20
 

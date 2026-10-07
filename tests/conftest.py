@@ -7,6 +7,7 @@ from typing import Any
 import pytest
 from alembic import command
 from alembic.config import Config
+from dotenv import dotenv_values
 from sqlalchemy import Engine, text
 
 from app import config as app_config
@@ -22,7 +23,9 @@ def load_fixture(name: str) -> Any:
 
 @pytest.fixture(scope="session")
 def _test_db_url() -> str:
-    url = os.environ.get("TEST_DATABASE_URL")
+    url = os.environ.get("TEST_DATABASE_URL") or dotenv_values(ROOT / ".env").get(
+        "TEST_DATABASE_URL"
+    )
     if not url:
         pytest.skip("TEST_DATABASE_URL not set")
     return url
