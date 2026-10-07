@@ -1,0 +1,10 @@
+# Railway config for the daily pipeline service (set "Config as code" path to this file).
+# 6am ET = 10:00 UTC during EDT, 11:00 UTC during EST. Railway cron is UTC; we use 10:00
+# so the run is 6am in summer and 5am in winter. Adjust if that matters.
+[build]
+builder = "RAILPACK"
+
+[deploy]
+startCommand = "python -m app.jobs.run_all"
+cronSchedule = "0 10 * * *"
+restartPolicyType = "NEVER"

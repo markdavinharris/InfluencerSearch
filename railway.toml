@@ -1,0 +1,11 @@
+# Railway config for the API service. The daily pipeline is a second Railway service
+# from the same repo with its start command / cron overridden — see README "Deploy".
+[build]
+builder = "RAILPACK"
+
+[deploy]
+preDeployCommand = ["alembic upgrade head && python -m app.jobs.sync_topics"]
+startCommand = "uvicorn app.api.main:app --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/health"
+healthcheckTimeout = 60
+restartPolicyType = "ON_FAILURE"

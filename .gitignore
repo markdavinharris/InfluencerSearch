@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+web/node_modules/
+web/.next/
+web/.env*
+!web/.env.example
+web/next-env.d.ts
+web/*.tsbuildinfo

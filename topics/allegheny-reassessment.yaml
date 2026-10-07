@@ -1,0 +1,21 @@
+# DRAFT starting topic — Mark to review keywords, subreddits and seed accounts.
+slug: allegheny-reassessment
+name: Allegheny County Property Reassessment
+description: >
+  Discussion of property assessment and reassessment in Allegheny County,
+  Pennsylvania: countywide reassessment proposals, base-year assessments,
+  assessment appeals, school district and municipal tax impacts, county council
+  and county executive actions, and related court rulings. Excludes property
+  tax debates elsewhere unless they explicitly concern Allegheny County.
+keywords:
+  - "Allegheny County reassessment"
+  - "Allegheny County property assessment"
+  - "Allegheny County assessment appeal"
+  - "Pittsburgh property reassessment"
+  - "Allegheny County property tax"
+exclude_keywords: []
+subreddits: [pittsburgh, Pennsylvania]
+rss_feeds: []
+seed_accounts: []
+window_days: 30
+active: true

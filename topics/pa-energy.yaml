@@ -1,0 +1,23 @@
+# DRAFT starting topic — Mark to review keywords, subreddits and seed accounts.
+slug: pa-energy
+name: Pennsylvania Energy Policy
+description: >
+  Discussion of energy policy in Pennsylvania: natural gas, fracking, RGGI,
+  electricity prices, PJM, pipelines, data center power demand, PUC decisions.
+  Includes state legislation and regulatory actions. Excludes national energy
+  debates unless they explicitly concern PA.
+keywords:
+  - "Pennsylvania energy"
+  - "PA fracking"
+  - RGGI
+  - "PJM capacity"
+  - "Shapiro energy plan"
+  - "Pennsylvania natural gas"
+  - "PA PUC"
+exclude_keywords:
+  - "Pennsylvania Avenue"
+subreddits: [Pennsylvania, pittsburgh, philadelphia, energy]
+rss_feeds: []
+seed_accounts: []
+window_days: 30
+active: true

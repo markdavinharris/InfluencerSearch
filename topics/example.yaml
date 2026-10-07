@@ -1,0 +1,21 @@
+# Topic definition format. Copy this file to topics/<slug>.yaml and edit.
+# example.yaml itself is never loaded.
+slug: example-topic
+name: Example Topic
+description: >
+  What counts as on-topic, written for the LLM classifier. Be specific about
+  geography, actors, and what to exclude. Keywords below are only used for
+  retrieval; this description decides relevance.
+keywords:            # platform search queries (OR-joined where the platform allows)
+  - "example phrase"
+  - keyword
+exclude_keywords:    # posts containing any of these are dropped before the LLM
+  - "unrelated phrase"
+subreddits: []       # searched in addition to r/all
+rss_feeds: []        # extra RSS/Atom feeds (local outlets, Substacks) for this topic
+seed_accounts:       # platform:handle; always collected regardless of search
+  - x:somereporter
+  - bluesky:someone.bsky.social
+  - youtube:@somechannel
+window_days: 30
+active: false
