@@ -8,38 +8,40 @@ Topics present in the DB but no longer in topics/ are left alone unless
 
 import argparse
 
-from sqlalchemy import func, update
+from sqlalchemy import Connection, func, update
 from sqlalchemy.dialects.postgresql import insert
 
 from app.db import connect
 from app.log import get_logger, setup_logging
 from app.models import topics
+from app.schemas import TopicConfig
 from app.topics import load_topic_files
 
 log = get_logger(__name__)
+
+
+def upsert_topic(conn: Connection, cfg: TopicConfig) -> None:
+    values = {
+        "slug": cfg.slug,
+        "name": cfg.name,
+        "description": cfg.description.strip(),
+        "config": cfg.model_dump(),
+        "window_days": cfg.window_days,
+        "active": cfg.active,
+    }
+    stmt = insert(topics).values(**values)
+    stmt = stmt.on_conflict_do_update(
+        index_elements=[topics.c.slug],
+        set_={**{k: stmt.excluded[k] for k in values if k != "slug"}, "updated_at": func.now()},
+    )
+    conn.execute(stmt)
 
 
 def sync_topics(deactivate_missing: bool = False) -> int:
     configs = load_topic_files()
     with connect() as conn:
         for cfg in configs:
-            values = {
-                "slug": cfg.slug,
-                "name": cfg.name,
-                "description": cfg.description.strip(),
-                "config": cfg.model_dump(),
-                "window_days": cfg.window_days,
-                "active": cfg.active,
-            }
-            stmt = insert(topics).values(**values)
-            stmt = stmt.on_conflict_do_update(
-                index_elements=[topics.c.slug],
-                set_={
-                    **{k: stmt.excluded[k] for k in values if k != "slug"},
-                    "updated_at": func.now(),
-                },
-            )
-            conn.execute(stmt)
+            upsert_topic(conn, cfg)
             log.info("topic_synced", slug=cfg.slug, active=cfg.active)
         if deactivate_missing:
             slugs = [c.slug for c in configs]

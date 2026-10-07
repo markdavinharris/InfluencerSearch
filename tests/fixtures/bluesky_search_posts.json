@@ -1,0 +1,36 @@
+{
+  "cursor": "100",
+  "hitsTotal": 3,
+  "posts": [
+    {
+      "uri": "at://did:plc:reporter111/app.bsky.feed.post/3lpost1",
+      "cid": "bafyreia1",
+      "author": {"did": "did:plc:reporter111", "handle": "energyreporter.bsky.social", "displayName": "Energy Reporter", "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:reporter111/a@jpeg", "labels": [], "createdAt": "2023-05-01T00:00:00.000Z"},
+      "record": {"$type": "app.bsky.feed.post", "createdAt": "2026-10-05T14:00:00.000Z", "langs": ["en"], "text": "New: PA PUC opens inquiry into PJM capacity costs. @analyst.bsky.social has the numbers.",
+        "facets": [{"index": {"byteStart": 51, "byteEnd": 71}, "features": [{"$type": "app.bsky.richtext.facet#mention", "did": "did:plc:analyst222"}]}]},
+      "replyCount": 4, "repostCount": 10, "likeCount": 55, "quoteCount": 2,
+      "indexedAt": "2026-10-05T14:00:01.000Z", "labels": []
+    },
+    {
+      "uri": "at://did:plc:analyst222/app.bsky.feed.post/3lpost2",
+      "cid": "bafyreia2",
+      "author": {"did": "did:plc:analyst222", "handle": "analyst.bsky.social", "displayName": "Grid Analyst", "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:analyst222/b@jpeg", "labels": []},
+      "record": {"$type": "app.bsky.feed.post", "createdAt": "2026-10-05T15:00:00.000Z", "langs": ["en"], "text": "Worth reading. The RGGI angle is overstated.",
+        "embed": {"$type": "app.bsky.embed.record", "record": {"cid": "bafyreia1", "uri": "at://did:plc:reporter111/app.bsky.feed.post/3lpost1"}}},
+      "embed": {"$type": "app.bsky.embed.record#view", "record": {"$type": "app.bsky.embed.record#viewRecord", "uri": "at://did:plc:reporter111/app.bsky.feed.post/3lpost1", "cid": "bafyreia1",
+        "author": {"did": "did:plc:reporter111", "handle": "energyreporter.bsky.social", "displayName": "Energy Reporter"},
+        "value": {"$type": "app.bsky.feed.post", "text": "New: PA PUC opens inquiry...", "createdAt": "2026-10-05T14:00:00.000Z"}, "indexedAt": "2026-10-05T14:00:01.000Z"}},
+      "replyCount": 0, "repostCount": 1, "likeCount": 8, "quoteCount": 0,
+      "indexedAt": "2026-10-05T15:00:01.000Z", "labels": []
+    },
+    {
+      "uri": "at://did:plc:citizen333/app.bsky.feed.post/3lpost3",
+      "cid": "bafyreia3",
+      "author": {"did": "did:plc:citizen333", "handle": "citizen.bsky.social", "displayName": "", "labels": []},
+      "record": {"$type": "app.bsky.feed.post", "createdAt": "2026-10-05T16:00:00.000Z", "langs": ["en"], "text": "my bill went up 20% this month, is this why?",
+        "reply": {"root": {"cid": "bafyreia1", "uri": "at://did:plc:reporter111/app.bsky.feed.post/3lpost1"}, "parent": {"cid": "bafyreia1", "uri": "at://did:plc:reporter111/app.bsky.feed.post/3lpost1"}}},
+      "replyCount": 1, "repostCount": 0, "likeCount": 2, "quoteCount": 0,
+      "indexedAt": "2026-10-05T16:00:01.000Z", "labels": []
+    }
+  ]
+}

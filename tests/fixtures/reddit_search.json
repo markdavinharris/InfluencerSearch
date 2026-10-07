@@ -1,0 +1,11 @@
+{
+  "kind": "Listing",
+  "data": {
+    "after": null, "dist": 2,
+    "children": [
+      {"kind": "t3", "data": {"name": "t3_1abc", "id": "1abc", "subreddit": "pittsburgh", "author": "steelcityowner", "title": "Allegheny County reassessment: what happens to my school taxes?", "selftext": "Got my new assessment notice. u/taxnerd412 explained base years last week, but I'm still lost.", "is_self": true, "domain": "self.pittsburgh", "url": "https://www.reddit.com/r/pittsburgh/comments/1abc/", "permalink": "/r/pittsburgh/comments/1abc/allegheny_county_reassessment/", "created_utc": 1759680000.0, "score": 154, "upvote_ratio": 0.95, "num_comments": 87}},
+      {"kind": "t3", "data": {"name": "t3_1abd", "id": "1abd", "subreddit": "pittsburgh", "author": "newsposter", "title": "County council delays vote on property reassessment", "selftext": "", "is_self": false, "domain": "publicsource.org", "url": "https://www.publicsource.org/allegheny-reassessment-vote", "url_overridden_by_dest": "https://www.publicsource.org/allegheny-reassessment-vote", "permalink": "/r/pittsburgh/comments/1abd/county_council_delays_vote/", "created_utc": 1759690000.0, "score": 80, "upvote_ratio": 0.9, "num_comments": 0}},
+      {"kind": "t3", "data": {"name": "t3_1abe", "id": "1abe", "subreddit": "pittsburgh", "author": "[deleted]", "title": "deleted post", "selftext": "[deleted]", "is_self": true, "domain": "self.pittsburgh", "permalink": "/r/pittsburgh/comments/1abe/x/", "created_utc": 1759690000.0, "score": 1, "num_comments": 0}}
+    ]
+  }
+}

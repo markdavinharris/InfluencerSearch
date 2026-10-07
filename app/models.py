@@ -107,6 +107,7 @@ post_sources = Table(
     Column("topic_id", Integer, ForeignKey("topics.id", ondelete="CASCADE"), nullable=False),
     Column("first_seen", DateTime(timezone=True), nullable=False, server_default=func.now()),
     PrimaryKeyConstraint("post_id", "topic_id"),
+    Index("ix_post_sources_topic", "topic_id"),
 )
 
 post_topics = Table(
@@ -192,7 +193,8 @@ api_quota = Table(
     "api_quota",
     metadata,
     Column("platform", String(16), nullable=False),
+    Column("scope", Text, nullable=False, server_default=""),
     Column("day", Date, nullable=False),
     Column("units", Integer, nullable=False, server_default="0"),
-    PrimaryKeyConstraint("platform", "day"),
+    PrimaryKeyConstraint("platform", "scope", "day"),
 )

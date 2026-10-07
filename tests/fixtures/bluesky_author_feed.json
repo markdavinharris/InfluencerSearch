@@ -1,0 +1,23 @@
+{
+  "feed": [
+    {
+      "post": {
+        "uri": "at://did:plc:analyst222/app.bsky.feed.post/3lpost9",
+        "cid": "bafyreia9",
+        "author": {"did": "did:plc:analyst222", "handle": "analyst.bsky.social", "displayName": "Grid Analyst"},
+        "record": {"$type": "app.bsky.feed.post", "createdAt": "2026-10-06T10:00:00.000Z", "text": "PJM auction results are out: PA zone clears at the cap again."},
+        "replyCount": 3, "repostCount": 6, "likeCount": 30, "quoteCount": 1, "indexedAt": "2026-10-06T10:00:01.000Z"
+      },
+      "reason": {"$type": "app.bsky.feed.defs#reasonRepost", "by": {"did": "did:plc:reporter111", "handle": "energyreporter.bsky.social", "displayName": "Energy Reporter"}, "indexedAt": "2026-10-06T11:00:00.000Z"}
+    },
+    {
+      "post": {
+        "uri": "at://did:plc:reporter111/app.bsky.feed.post/3lpost8",
+        "cid": "bafyreia8",
+        "author": {"did": "did:plc:reporter111", "handle": "energyreporter.bsky.social", "displayName": "Energy Reporter"},
+        "record": {"$type": "app.bsky.feed.post", "createdAt": "2026-08-01T10:00:00.000Z", "text": "Old post outside the window about RGGI."},
+        "replyCount": 0, "repostCount": 0, "likeCount": 1, "quoteCount": 0, "indexedAt": "2026-08-01T10:00:01.000Z"
+      }
+    }
+  ]
+}

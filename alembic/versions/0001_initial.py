@@ -155,11 +155,13 @@ def upgrade() -> None:
             updated_at timestamptz NOT NULL DEFAULT now()
         );
 
+        -- Daily usage of quota-limited APIs. scope is e.g. a topic slug ('' = global).
         CREATE TABLE api_quota (
             platform varchar(16) NOT NULL,
+            scope text NOT NULL DEFAULT '',
             day date NOT NULL,
             units int NOT NULL DEFAULT 0,
-            PRIMARY KEY (platform, day)
+            PRIMARY KEY (platform, scope, day)
         );
         """
     )

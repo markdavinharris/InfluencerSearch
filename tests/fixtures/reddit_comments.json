@@ -1,0 +1,12 @@
+[
+  {"kind": "Listing", "data": {"children": [{"kind": "t3", "data": {"name": "t3_1abc", "id": "1abc", "author": "steelcityowner"}}]}},
+  {"kind": "Listing", "data": {"children": [
+    {"kind": "t1", "data": {"name": "t1_c1", "id": "c1", "author": "taxnerd412", "body": "Base year is 2012. A reassessment resets values; millage should roll back so total revenue is neutral.", "parent_id": "t3_1abc", "link_id": "t3_1abc", "permalink": "/r/pittsburgh/comments/1abc/x/c1/", "created_utc": 1759681000.0, "score": 60, "depth": 0, "subreddit": "pittsburgh",
+      "replies": {"kind": "Listing", "data": {"children": [
+        {"kind": "t1", "data": {"name": "t1_c2", "id": "c2", "author": "steelcityowner", "body": "Thanks, that helps.", "parent_id": "t1_c1", "link_id": "t3_1abc", "permalink": "/r/pittsburgh/comments/1abc/x/c2/", "created_utc": 1759682000.0, "score": 5, "depth": 1, "subreddit": "pittsburgh", "replies": ""}},
+        {"kind": "more", "data": {"count": 3, "children": ["c9"]}}
+      ]}}}},
+    {"kind": "t1", "data": {"name": "t1_c3", "id": "c3", "author": "[deleted]", "body": "[removed]", "parent_id": "t3_1abc", "created_utc": 1759683000.0, "score": 1, "replies": ""}},
+    {"kind": "more", "data": {"count": 40, "children": ["c4", "c5"]}}
+  ]}}
+]
