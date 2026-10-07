@@ -25,6 +25,7 @@ disagrees with it.
 ## Commands
 
 ```bash
+make help                                 # common tasks (wraps the commands below)
 uv sync                                   # install (uv.lock pins everything)
 docker compose up -d db                   # local Postgres 16 + pgvector (+ influence_test db)
 cp .env.example .env
@@ -32,6 +33,7 @@ uv run alembic upgrade head               # migrations
 uv run python -m app.jobs.sync_topics     # load topics/*.yaml
 uv run python -m app.jobs.collect --topic pa-energy --platform bluesky --dry-run
 uv run python -m app.jobs.run_all         # collect -> classify -> embed -> score
+uv run python -m app.jobs.seed_demo       # synthetic demo data (local DB only)
 uv run uvicorn app.api.main:app --reload  # API on :8000
 uv run pytest                             # tests (DB tests need TEST_DATABASE_URL)
 uv run ruff check . && uv run ruff format --check . && uv run mypy app
@@ -70,4 +72,16 @@ New migration: `uv run alembic revision -m "what"` then write SQL by hand in
 - **Daily pipeline:** second Railway service from this repo using `railway.cron.toml`
   (`python -m app.jobs.run_all`, cron `0 10 * * *` UTC).
 - **Web:** Vercel project with root directory `web/`; env `API_URL`, `INTERNAL_API_KEY`, Clerk
-  keys.
+  keys, `ALLOWED_EMAIL_DOMAINS`. Full steps in README.md "Deploy".
+
+## Gotchas
+
+- `app/models.py` must mirror the migrations by hand; tests run the real migrations.
+- X retweet objects carry the original tweet's metrics — the normalizer zeroes them.
+- `post_sources` records which topic's retrieval found a post; classification only runs on
+  those (post, topic) pairs, so a post is never classified against unrelated topics.
+- Fixtures in `tests/fixtures/` were hand-built from API docs; replace with `--record`
+  output when credentials exist (keep the filenames).
+- Web: auth is skipped only when `NODE_ENV=development` and no Clerk keys are set; in
+  production a missing Clerk config returns 503. Pages and server actions call
+  `requireAllowedUser()`; keep doing that for any new page or action.
