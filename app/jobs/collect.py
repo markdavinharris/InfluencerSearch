@@ -54,14 +54,15 @@ def run_collect(
     names = platforms or [p for p in REGISTRY if p in settings.enabled_collector_set]
     results: list[RunResult] = []
     with engine.connect() as conn:
-        topics = active_topics(conn)
+        topics_all = active_topics(conn)
+        topics = topics_all
         conn.commit()
         if topic_slugs:
             topics = [t for t in topics if t.slug in topic_slugs]
         for name in names:
             try:
                 cls = collector_class(name)
-                kwargs = {"n_topics": len(active_topics(conn))} if name == "x" else {}
+                kwargs = {"n_topics": len(topics_all)} if name in ("x", "youtube") else {}
                 collector = cls(settings=settings, engine=engine, record_dir=record_dir, **kwargs)
             except Exception as exc:
                 log.exception("collector_init_failed", platform=name)

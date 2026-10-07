@@ -1,0 +1,3 @@
+{"status": "true", "feeds": [
+  {"id": 920666, "title": "The Energy Hour PA", "url": "https://feeds.example.com/energyhour.xml", "link": "https://energyhour.example.com", "description": "Weekly talk on Pennsylvania energy.", "author": "WPEN", "image": "https://example.com/eh.jpg", "language": "en"}
+], "count": 1, "query": "RGGI"}

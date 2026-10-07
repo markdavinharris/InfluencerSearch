@@ -15,7 +15,7 @@ from datetime import UTC, datetime, timedelta
 
 from sqlalchemy import insert, select
 
-from app.collectors.base import Author, EdgeHint, Post, store_post
+from app.collectors.base import Author, EdgeHint, EdgeKind, Post, store_post
 from app.config import get_settings
 from app.db import get_engine
 from app.models import post_topics, posts
@@ -74,7 +74,7 @@ def main() -> None:
                     if rng.random() < 0.6:
                         target = rng.choice(hubs if rng.random() < 0.75 else people)
                         if target is not author and target.platform == author.platform:
-                            kind = rng.choice(["quote", "repost", "reply", "mention"])
+                            kind: EdgeKind = rng.choice(["quote", "repost", "reply", "mention"])
                             hints.append(
                                 EdgeHint(
                                     kind, target.platform, author_platform_id=target.platform_id

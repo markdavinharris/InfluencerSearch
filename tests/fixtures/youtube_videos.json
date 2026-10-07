@@ -1,0 +1,6 @@
+{"kind": "youtube#videoListResponse", "items": [
+  {"id": "vid111", "snippet": {"publishedAt": "2026-10-04T18:00:00Z", "channelId": "UCaaa", "title": "Why your PA electric bill is going up: PJM capacity explained", "description": "We break down the PJM capacity auction and what the PA PUC can do.", "channelTitle": "Keystone Explainers", "tags": ["PJM", "Pennsylvania"]},
+   "statistics": {"viewCount": "15230", "likeCount": "640", "favoriteCount": "0", "commentCount": "88"}},
+  {"id": "vid222", "snippet": {"publishedAt": "2026-10-03T12:00:00Z", "channelId": "UCbbb", "title": "Pennsylvania Avenue walking tour", "description": "A stroll through DC.", "channelTitle": "DC Walks"},
+   "statistics": {"viewCount": "900", "commentCount": "3"}}
+]}

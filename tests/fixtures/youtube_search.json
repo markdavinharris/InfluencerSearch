@@ -1,0 +1,5 @@
+{"kind": "youtube#searchListResponse", "pageInfo": {"totalResults": 2, "resultsPerPage": 50},
+ "items": [
+  {"kind": "youtube#searchResult", "id": {"kind": "youtube#video", "videoId": "vid111"}},
+  {"kind": "youtube#searchResult", "id": {"kind": "youtube#video", "videoId": "vid222"}}
+ ]}

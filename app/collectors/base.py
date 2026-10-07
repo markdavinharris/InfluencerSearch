@@ -18,7 +18,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 import httpx
-from sqlalchemy import Connection, Engine, func, insert, literal_column, update
+from sqlalchemy import Connection, Engine, func, insert, literal_column, select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from tenacity import (
     retry,
@@ -374,3 +374,59 @@ class Collector(ABC):
             dry_run=dry_run,
         )
         return result
+
+
+_TAG_RE = re.compile(r"<[^>]+>")
+_SPACE_RE = re.compile(r"[ \t\r\f\v]+")
+
+
+def strip_html(html: str | None) -> str:
+    import html as html_lib
+
+    if not html:
+        return ""
+    text = html_lib.unescape(_TAG_RE.sub(" ", html))
+    return "\n".join(_SPACE_RE.sub(" ", line).strip() for line in text.splitlines()).strip()
+
+
+def keyword_matcher(keywords: list[str]) -> Callable[[str], bool]:
+    """Case-insensitive 'contains any keyword' (whole-word for single short tokens like RGGI)."""
+    parts = []
+    for kw in keywords:
+        k = re.escape(kw.strip().strip('"').lower())
+        parts.append(rf"\b{k}\b")
+    rx = re.compile("|".join(parts), re.IGNORECASE) if parts else None
+    return lambda text: bool(rx and rx.search(text or ""))
+
+
+def domain_of(url: str | None) -> str | None:
+    from urllib.parse import urlparse
+
+    if not url:
+        return None
+    host = (urlparse(url).hostname or "").lower()
+    return host[4:] if host.startswith("www.") else host or None
+
+
+def quota_scope_allowance(
+    conn: Connection, platform: str, scope: str, day: date, daily_cap: int, n_scopes: int
+) -> int:
+    """Remaining units today for one scope (topic) when a daily cap is split evenly."""
+    per_scope = max(1, daily_cap // max(1, n_scopes))
+    total = conn.execute(
+        select(func.coalesce(func.sum(api_quota.c.units), 0)).where(
+            api_quota.c.platform == platform, api_quota.c.day == day
+        )
+    ).scalar_one()
+    mine = quota_used(conn, platform, scope, day)
+    return max(0, min(per_scope - mine, daily_cap - int(total)))
+
+
+def entry_published(entry: Any) -> datetime | None:
+    """Publication time of a feedparser entry (its *_parsed fields are UTC struct_time)."""
+    import calendar
+
+    for key in ("published_parsed", "updated_parsed"):
+        if entry.get(key):
+            return datetime.fromtimestamp(calendar.timegm(entry[key]), tz=UTC)
+    return None

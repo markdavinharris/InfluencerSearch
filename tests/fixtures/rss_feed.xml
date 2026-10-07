@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>Spotlight PA</title>
+  <link>https://www.spotlightpa.org/</link>
+  <description>Independent, nonpartisan reporting on Pennsylvania</description>
+  <item>
+    <title>Shapiro energy plan stalls in the Senate</title>
+    <link>https://www.spotlightpa.org/news/2026/10/shapiro-energy-plan-senate/</link>
+    <description><![CDATA[<p>The governor&#8217;s <b>Lightning Plan</b> and RGGI exit talks stall.</p>]]></description>
+    <pubDate>Mon, 05 Oct 2026 13:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>School board elections preview</title>
+    <link>https://www.spotlightpa.org/news/2026/10/school-boards/</link>
+    <description>Who is running where.</description>
+    <pubDate>Mon, 05 Oct 2026 12:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>RGGI explainer from last year</title>
+    <link>https://www.spotlightpa.org/news/2025/01/rggi/</link>
+    <description>Old.</description>
+    <pubDate>Mon, 06 Jan 2025 12:00:00 GMT</pubDate>
+  </item>
+</channel>
+</rss>

@@ -1,0 +1,4 @@
+{"kind": "youtube#channelListResponse", "items": [
+  {"id": "UCaaa", "snippet": {"title": "Keystone Explainers", "description": "Policy explainers for Pennsylvanians", "customUrl": "@keystoneexplainers", "thumbnails": {"default": {"url": "https://yt3.ggpht.com/a.jpg"}}}, "statistics": {"viewCount": "100000", "subscriberCount": "23400", "hiddenSubscriberCount": false, "videoCount": "120"}},
+  {"id": "UCbbb", "snippet": {"title": "DC Walks", "customUrl": "@dcwalks"}, "statistics": {"hiddenSubscriberCount": true}}
+]}
