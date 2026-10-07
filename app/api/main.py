@@ -1,16 +1,19 @@
 """FastAPI app. Only the Next.js server calls this (BFF pattern): every route except
-/health requires the X-Internal-Key header."""
+/health requires the X-Internal-Key header. No CORS: browsers never call it directly."""
 
 from fastapi import Depends, FastAPI
 from sqlalchemy import text
 
 from app.api.deps import require_internal_key
+from app.api.routers import authors, persons, posts, stats, topics
 from app.db import get_engine
 from app.log import setup_logging
 
 setup_logging()
 
-app = FastAPI(title="Topic Influence Mapper", version="0.1.0", docs_url=None, redoc_url=None)
+app = FastAPI(
+    title="Topic Influence Mapper", version="0.1.0", docs_url=None, redoc_url=None, openapi_url=None
+)
 
 
 @app.get("/health")
@@ -25,3 +28,5 @@ def health() -> dict[str, str]:
 
 
 protected = [Depends(require_internal_key)]
+for r in (topics.router, authors.router, persons.router, posts.router, stats.router):
+    app.include_router(r, dependencies=protected)
