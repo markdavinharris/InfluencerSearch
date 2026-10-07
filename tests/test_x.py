@@ -40,6 +40,7 @@ def test_retweet_has_repost_edge_but_no_mention_edge() -> None:
     rt = posts["1844000000000000003"]
     assert rt.kind == "repost"
     assert [(h.kind, h.author_platform_id) for h in rt.edge_hints] == [("repost", "1001")]
+    assert (rt.likes, rt.reposts, rt.views) == (0, 0, None)  # original's metrics not copied
 
 
 def test_reply_dedupes_leading_mention_and_keeps_others() -> None:

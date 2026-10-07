@@ -146,6 +146,10 @@ def normalize_response(resp: dict[str, Any]) -> list[Post]:
                     related_ids.add(mid)
         author = normalize_user(author_raw)
         related_ids.discard(author.platform_id)
+        if kind == "repost":
+            # A retweet object carries the *original* tweet's metrics; don't credit the
+            # retweeter with them.
+            pm = {}
         out.append(
             Post(
                 platform="x",
