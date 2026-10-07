@@ -9,6 +9,7 @@ from app.config import get_settings
 from app.schemas import (
     AuthorDetail,
     AuthorPost,
+    AuthorRef,
     AuthorTopicScore,
     EdgeSummary,
     PersonRef,
@@ -43,6 +44,23 @@ def _edge_summaries(
         s.count += r.n
         s.kinds[r.kind] = s.kinds.get(r.kind, 0) + r.n
     return sorted(agg.values(), key=lambda s: -s.count)[:25]
+
+
+@router.get("", response_model=list[AuthorRef])
+def search_authors(
+    conn: Conn,
+    q: Annotated[str, Query(min_length=2, max_length=100)],
+    limit: Annotated[int, Query(ge=1, le=50)] = 20,
+) -> list[AuthorRef]:
+    """Find accounts by handle or display name (for the merge-into-person control)."""
+    like = "%" + q.lower().lstrip("@").replace("%", "").replace("_", r"\_") + "%"
+    rows = conn.execute(
+        text(f"""SELECT {AUTHOR_COLS} FROM authors a
+                 WHERE lower(a.handle) LIKE :q OR lower(a.display_name) LIKE :q
+                 ORDER BY a.followers DESC NULLS LAST LIMIT :lim"""),
+        {"q": like, "lim": limit},
+    ).all()
+    return [author_ref(r) for r in rows]
 
 
 @router.get("/{author_id}", response_model=AuthorDetail)

@@ -110,6 +110,7 @@ def client(db, topic_factory, monkeypatch) -> Iterator[TestClient]:  # type: ign
 
 ROUTES = [
     "/topics",
+    "/authors?q=rep",
     "/topics/pa-energy/influencers",
     "/topics/pa-energy/rising",
     "/authors/1",
@@ -211,6 +212,14 @@ def test_merge_persons(client: TestClient) -> None:
         "/persons/merge", headers=KEY, json={"author_ids": [1, 999], "display_name": "x"}
     )
     assert bad.status_code == 404
+
+
+@pytest.mark.db
+def test_search_authors(client: TestClient) -> None:
+    r = client.get("/authors?q=@REPORT", headers=KEY).json()
+    assert [a["handle"] for a in r] == ["reporter"]
+    assert client.get("/authors?q=advocate", headers=KEY).json()[0]["platform"] == "bluesky"
+    assert client.get("/authors?q=x", headers=KEY).status_code == 422
 
 
 @pytest.mark.db
