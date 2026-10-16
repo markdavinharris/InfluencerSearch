@@ -1,7 +1,41 @@
 {
   "profiles": [
-    {"did": "did:plc:reporter111", "handle": "energyreporter.bsky.social", "displayName": "Energy Reporter", "description": "PA energy reporter", "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:reporter111/a@jpeg", "followersCount": 5400, "followsCount": 300, "postsCount": 2100, "indexedAt": "2026-01-01T00:00:00.000Z"},
-    {"did": "did:plc:analyst222", "handle": "analyst.bsky.social", "displayName": "Grid Analyst", "description": "Power markets", "followersCount": 2100, "followsCount": 500, "postsCount": 900},
-    {"did": "did:plc:citizen333", "handle": "citizen.bsky.social", "displayName": "", "followersCount": 12, "followsCount": 40, "postsCount": 30}
+    {
+      "did": "did:plc:reporter111",
+      "handle": "energyreporter.bsky.social",
+      "displayName": "Energy Reporter",
+      "description": "PA energy reporter",
+      "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:reporter111/a@jpeg",
+      "followersCount": 5400,
+      "followsCount": 300,
+      "postsCount": 2100,
+      "indexedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "did": "did:plc:analyst222",
+      "handle": "analyst.bsky.social",
+      "displayName": "Grid Analyst",
+      "description": "Power markets",
+      "followersCount": 2100,
+      "followsCount": 500,
+      "postsCount": 900
+    },
+    {
+      "did": "did:plc:citizen333",
+      "handle": "citizen.bsky.social",
+      "displayName": "",
+      "followersCount": 12,
+      "followsCount": 40,
+      "postsCount": 30
+    },
+    {
+      "did": "did:plc:puc444",
+      "handle": "papuc.bsky.social",
+      "displayName": "PA Public Utility Commission",
+      "description": "Official account. Rates, PJM capacity, and utility oversight in Pennsylvania.",
+      "followersCount": 9100,
+      "followsCount": 12,
+      "postsCount": 400
+    }
   ]
 }

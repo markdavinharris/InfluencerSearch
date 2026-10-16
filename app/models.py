@@ -20,7 +20,7 @@ from sqlalchemy import (
     UniqueConstraint,
     func,
 )
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 
 metadata = MetaData()
 
@@ -197,4 +197,34 @@ api_quota = Table(
     Column("day", Date, nullable=False),
     Column("units", Integer, nullable=False, server_default="0"),
     PrimaryKeyConstraint("platform", "scope", "day"),
+)
+
+# Accounts found by app/discovery.py for a human to accept (becomes a seed) or reject.
+seed_candidates = Table(
+    "seed_candidates",
+    metadata,
+    Column("id", Integer, primary_key=True),
+    Column("topic_id", Integer, ForeignKey("topics.id", ondelete="CASCADE"), nullable=False),
+    Column("platform", String(16), nullable=False),
+    Column("platform_id", Text, nullable=False),
+    Column("seed_handle", Text, nullable=False),
+    Column("display_name", Text),
+    Column("bio", Text),
+    Column("url", Text),
+    Column("avatar_url", Text),
+    Column("followers", Integer),
+    Column("matched_posts", Integer, nullable=False, server_default="0"),
+    Column("matched_keywords", ARRAY(Text), nullable=False, server_default="{}"),
+    Column("bio_match", Boolean, nullable=False, server_default="false"),
+    Column("sample_text", Text),
+    Column("sample_url", Text),
+    Column("sources", ARRAY(Text), nullable=False, server_default="{}"),
+    Column("score", Float, nullable=False, server_default="0"),
+    Column("status", String(10), nullable=False, server_default="pending"),
+    Column("decided_at", DateTime(timezone=True)),
+    Column("decided_by", Text),
+    Column("first_seen", DateTime(timezone=True), nullable=False, server_default=func.now()),
+    Column("last_seen", DateTime(timezone=True), nullable=False, server_default=func.now()),
+    UniqueConstraint("topic_id", "platform", "platform_id", name="uq_seed_candidates"),
+    Index("ix_seed_candidates_topic_status_score", "topic_id", "status", "score"),
 )

@@ -266,3 +266,59 @@ class Stats(BaseModel):
     llm_daily_token_cap: int
     x_budget: XBudgetStatus
     totals: dict[str, int]
+
+
+# ---------------------------------------------------------------- seed discovery
+
+SeedStatus = Literal["pending", "accepted", "rejected"]
+
+
+class SeedCandidate(BaseModel):
+    id: int
+    platform: str
+    seed_handle: str
+    display_name: str | None
+    bio: str | None
+    url: str | None
+    avatar_url: str | None
+    followers: int | None
+    matched_posts: int
+    matched_keywords: list[str]
+    bio_match: bool
+    sample_text: str | None
+    sample_url: str | None
+    sources: list[str]
+    score: float
+    status: SeedStatus
+    decided_by: str | None
+    decided_at: datetime | None
+    last_seen: datetime
+
+
+class SeedCandidatesResponse(BaseModel):
+    topic: str
+    counts: dict[str, int]  # by status
+    rows: list[SeedCandidate]
+
+
+class SeedDecision(BaseModel):
+    status: SeedStatus
+    decided_by: str | None = None
+
+
+class TopicSeeds(BaseModel):
+    topic: str
+    from_config: list[str]  # in topics/<slug>.yaml (edit the file to change)
+    accepted: list[SeedCandidate]  # accepted in the UI
+
+
+class DiscoverRequest(BaseModel):
+    sources: list[Literal["existing", "bluesky", "x", "youtube", "podcasts"]] | None = None
+    min_followers: int = Field(default=500, ge=0)
+
+
+class DiscoverStatus(BaseModel):
+    running: bool
+    last_started: datetime | None
+    last_finished: datetime | None
+    runs: list[CollectorRunRow]

@@ -190,6 +190,21 @@ Per-platform notes:
 
 Rate limiting and retries live in `base.py` (use `tenacity`). Every collector gets a `--dry-run` flag that prints normalized posts without writing.
 
+### 6a. Seed-account discovery (added after v1 build)
+
+Added at Mark's request so seeds can be picked from suggestions instead of typed into YAML.
+`python -m app.jobs.discover_seeds` (or **Find candidates** on a topic's *Seed accounts* page)
+finds accounts for each topic from: accounts already collected with on-topic posts (free),
+Bluesky post + profile search (free), one X recent-search page (default 100 reads, charged to
+the X budget under scope `discover:<slug>`), one YouTube channel search (counts against the
+daily search cap) and Podcast Index. Candidates below a follower threshold (default 500;
+podcasts exempt, they have no counts) are dropped; the rest are stored in `seed_candidates`
+ordered by `log10(1+followers) × (1+log2(1+matching posts)) × 1.5 if bio matches × (1+0.25 per
+extra keyword)`. A human accepts or rejects each one; accepted candidates are merged into the
+topic's `seed_accounts` whenever topics are loaded, so collectors pick them up with no YAML
+edit. Re-running discovery refreshes stats but never overrides a decision. Reddit and news are
+not seedable (they use `subreddits` / `rss_feeds`).
+
 ## 7. Classification
 
 `pipeline/classify.py` selects posts with no `post_topics` row for an active topic, batches them, and calls the LLM with the topic `description` and up to ~20 posts per call. Output is strict JSON per post:

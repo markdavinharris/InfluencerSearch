@@ -160,3 +160,47 @@ export interface Stats {
   };
   totals: Record<string, number>;
 }
+
+export type SeedStatus = "pending" | "accepted" | "rejected";
+export type SeedSource = "existing" | "bluesky" | "x" | "youtube" | "podcasts";
+
+export interface SeedCandidate {
+  id: number;
+  platform: Platform;
+  seed_handle: string;
+  display_name: string | null;
+  bio: string | null;
+  url: string | null;
+  avatar_url: string | null;
+  followers: number | null;
+  matched_posts: number;
+  matched_keywords: string[];
+  bio_match: boolean;
+  sample_text: string | null;
+  sample_url: string | null;
+  sources: string[];
+  score: number;
+  status: SeedStatus;
+  decided_by: string | null;
+  decided_at: string | null;
+  last_seen: string;
+}
+
+export interface SeedCandidatesResponse {
+  topic: string;
+  counts: Record<SeedStatus, number>;
+  rows: SeedCandidate[];
+}
+
+export interface TopicSeeds {
+  topic: string;
+  from_config: string[];
+  accepted: SeedCandidate[];
+}
+
+export interface DiscoverStatus {
+  running: boolean;
+  last_started: string | null;
+  last_finished: string | null;
+  runs: Stats["collector_runs"];
+}

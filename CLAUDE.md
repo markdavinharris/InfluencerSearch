@@ -34,6 +34,7 @@ uv run python -m app.jobs.sync_topics     # load topics/*.yaml
 uv run python -m app.jobs.collect --topic pa-energy --platform bluesky --dry-run
 uv run python -m app.jobs.run_all         # collect -> classify -> embed -> score
 uv run python -m app.jobs.seed_demo       # synthetic demo data (local DB only)
+uv run python -m app.jobs.discover_seeds --topic pa-energy --dry-run   # seed candidates
 uv run uvicorn app.api.main:app --reload  # API on :8000
 uv run pytest                             # tests (DB tests need TEST_DATABASE_URL)
 uv run ruff check . && uv run ruff format --check . && uv run mypy app
@@ -78,6 +79,9 @@ New migration: `uv run alembic revision -m "what"` then write SQL by hand in
 
 - `app/models.py` must mirror the migrations by hand; tests run the real migrations.
 - X retweet objects carry the original tweet's metrics — the normalizer zeroes them.
+- Seeds come from two places: `seed_accounts` in the YAML, plus rows in `seed_candidates` with
+  status `accepted` (merged in by `app/topics.py` whenever topics are loaded — always load
+  topics through `active_topics`/`get_topic`, not by reading `topics.config` directly).
 - `post_sources` records which topic's retrieval found a post; classification only runs on
   those (post, topic) pairs, so a post is never classified against unrelated topics.
 - Fixtures in `tests/fixtures/` were hand-built from API docs; replace with `--record`

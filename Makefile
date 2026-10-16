@@ -1,5 +1,5 @@
 # Common tasks. `make help` lists them.
-.PHONY: help install db migrate topics api web test lint fmt typecheck check run collect classify score seed
+.PHONY: help install db migrate topics api web test lint fmt typecheck check run collect classify score seed discover
 
 help:  ## show this help
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-10s %s\n", $$1, $$2}'
@@ -51,6 +51,9 @@ classify:  ## classification only
 
 score:  ## scoring only
 	uv run python -m app.jobs.score
+
+discover:  ## find seed-account candidates for every active topic (review them in the UI)
+	uv run python -m app.jobs.discover_seeds
 
 seed:  ## fill the LOCAL db with synthetic demo data for UI work
 	uv run python -m app.jobs.seed_demo

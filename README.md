@@ -73,6 +73,25 @@ deploy and at the start of each daily run) upserts them; set `active: false` to 
 The two starting topics (`pa-energy`, `allegheny-reassessment`) are drafts: review keywords,
 subreddits and seed accounts before the first real run.
 
+### Finding seed accounts
+
+You don't have to know the seeds up front. On a topic page click **Seed accounts → Find
+candidates**: it looks for accounts posting about the topic's keywords (or describing
+themselves with them) on Bluesky, X, YouTube and podcasts, plus accounts already collected
+with on-topic posts, drops anything under the follower minimum, and lists the rest with
+follower counts, how many matching posts they have, which keywords matched, their bio and an
+example post. **Accept** makes an account a seed from the next daily run; **Reject** hides it
+for good (re-running the search won't bring it back). X is off by default because it spends
+~100 reads of the monthly X budget per topic. Same thing from the command line:
+
+```bash
+uv run python -m app.jobs.discover_seeds --topic pa-energy --dry-run   # print the top 50
+uv run python -m app.jobs.discover_seeds --topic pa-energy --source bluesky --min-followers 1000
+```
+
+After the first week of collection, the "already collected" source is usually the best one:
+it costs nothing and only suggests accounts whose posts were actually classified on-topic.
+
 ## API credentials
 
 | Platform | Get it at | Env vars | Notes |

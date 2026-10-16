@@ -1,0 +1,4 @@
+{"actors": [
+  {"did": "did:plc:puc444", "handle": "papuc.bsky.social", "displayName": "PA Public Utility Commission", "description": "Official account. Rates, PJM capacity, and utility oversight in Pennsylvania.", "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:puc444/a@jpeg", "indexedAt": "2026-01-01T00:00:00.000Z"},
+  {"did": "did:plc:reporter111", "handle": "energyreporter.bsky.social", "displayName": "Energy Reporter", "description": "PA energy reporter"}
+]}

@@ -1,0 +1,4 @@
+{"kind": "youtube#searchListResponse", "items": [
+  {"kind": "youtube#searchResult", "id": {"kind": "youtube#channel", "channelId": "UCaaa"}, "snippet": {"title": "Keystone Explainers", "description": "Policy explainers for Pennsylvanians"}},
+  {"kind": "youtube#searchResult", "id": {"kind": "youtube#channel", "channelId": "UCbbb"}, "snippet": {"title": "DC Walks"}}
+]}

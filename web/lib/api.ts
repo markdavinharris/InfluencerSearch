@@ -4,12 +4,17 @@ import "server-only";
 
 import type {
   AuthorDetail,
+  DiscoverStatus,
+  SeedCandidatesResponse,
+  SeedSource,
+  SeedStatus,
   AuthorRef,
   InfluencersResponse,
   RisingResponse,
   ScoreHistory,
   SimilarPost,
   Stats,
+  TopicSeeds,
   TopicSummary,
 } from "./types";
 
@@ -76,4 +81,18 @@ export const api = {
   unmerge: (authorId: number) =>
     request<void>(`/persons/unmerge/${authorId}`, { method: "POST" }),
   stats: () => request<Stats>("/stats"),
+  seedCandidates: (slug: string, q: { status?: SeedStatus; platform?: string; min_followers?: number }) =>
+    request<SeedCandidatesResponse>(`/topics/${encodeURIComponent(slug)}/seed-candidates`, { query: q }),
+  topicSeeds: (slug: string) => request<TopicSeeds>(`/topics/${encodeURIComponent(slug)}/seeds`),
+  decideSeed: (id: number, status: SeedStatus, decided_by: string) =>
+    request<unknown>(`/seed-candidates/${id}`, {
+      method: "POST",
+      body: JSON.stringify({ status, decided_by }),
+    }),
+  discoverStatus: (slug: string) => request<DiscoverStatus>(`/topics/${encodeURIComponent(slug)}/discover`),
+  startDiscovery: (slug: string, body: { sources?: SeedSource[]; min_followers?: number }) =>
+    request<DiscoverStatus>(`/topics/${encodeURIComponent(slug)}/discover`, {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
 };

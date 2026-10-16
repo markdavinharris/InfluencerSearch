@@ -82,6 +82,9 @@ export default async function TopicPage({
       <div className="mt-5 flex flex-wrap items-center gap-3">
         {tabs}
         {view === "influencers" && <Filters slug={slug} sp={sp} />}
+        <Link href={`/topics/${slug}/seeds`} className={cn(buttonVariants({ variant: "outline", size: "sm" }), "ml-auto")}>
+          Seed accounts
+        </Link>
       </div>
       <div className="mt-4">
         {view === "rising" ? <Rising slug={slug} /> : <Influencers slug={slug} sp={sp} />}

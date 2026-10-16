@@ -8,6 +8,7 @@ unit: keywords are OR-joined with `|`. Seed channels are read via their uploads 
 videos.list / channels.list (1 unit per 50 ids). Author = channel. Comments are skipped.
 """
 
+import re
 from collections.abc import Iterator
 from datetime import UTC, date, datetime
 from typing import Any
@@ -33,6 +34,7 @@ log = get_logger(__name__)
 
 API = "https://www.googleapis.com/youtube/v3"
 MAX_DESCRIPTION = 2000
+CHANNEL_ID_RE = re.compile(r"^UC[A-Za-z0-9_-]{22}$")
 
 
 def build_query(keywords: list[str]) -> str:
@@ -147,8 +149,11 @@ class YouTubeCollector(Collector):
             quota_add(conn, "youtube", topic.slug, self.today, 1)
 
     def _seed_video_ids(self, handle: str, since: datetime) -> list[str]:
-        h = handle if handle.startswith("@") else f"@{handle}"
-        ch = self._get("channels", {"part": "contentDetails", "forHandle": h})
+        if CHANNEL_ID_RE.match(handle):  # channels without an @handle are seeded by id
+            lookup = {"id": handle}
+        else:
+            lookup = {"forHandle": handle if handle.startswith("@") else f"@{handle}"}
+        ch = self._get("channels", {"part": "contentDetails", **lookup})
         items = ch.get("items") or []
         if not items:
             log.warning("youtube_seed_not_found", handle=handle)
